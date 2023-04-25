@@ -1,8 +1,13 @@
-import { ADD_ONE, APPLY_NUMBER, CHANGE_OPERATION } from './../actions';
+import { useState } from 'react';
+import { ADD_ONE, APPLY_NUMBER, CHANGE_OPERATION  ,
+   CLEAR_DISPLAY,
+  MEMORY_ADD,
+  MR_ADD,
+  MC_ZERO,} from './../actions';
 
 export const initialState = {
   total: 100,
-  operation: "*",
+  operation: "+",
   memory: 100
 }
 
@@ -17,7 +22,7 @@ const calculateResult = (num1, num2, operation) => {
     default:
       return;
   }
-}
+};
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -38,6 +43,27 @@ const reducer = (state, action) => {
         ...state,
         operation: action.payload
       });
+      case CLEAR_DISPLAY:
+      return {
+        ...state,
+        total: 0,
+      };
+    case MEMORY_ADD:
+      return {
+        ...state,
+        memory: state.total,
+      };
+    case MR_ADD:
+      return {
+        ...state,
+        total: state.memory,
+      };
+      case MC_ZERO:
+        return {
+          ...state,
+          memory: 0,
+        };
+  
 
     default:
       return state;
